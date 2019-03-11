@@ -11,11 +11,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header class="navbar-fixed">
-        <nav>
+    <header class="black navbar-fixed">
+        <nav class="black">
             <div class="nav-wrapper">
                 <ul>
-                    <li><a href="/" class="left brand-logo"><img src="{% static 'images/record-logo.png' %}"></a></li>
+                    <li><a href="/about" class="left brand-logo"><img src="{% static 'images/record-logo.png' %}"></a></li>
                 </ul>
                 <ul class="right">
                     <li><a href="/about">About</a></li>
@@ -29,7 +29,7 @@
         {% block content %}
         {% endblock %}
     </main>
-  	<footer class="page-footer">
+  	<footer class="black page-footer">
        <div class="right">All Rights Reserved, &copy; 2019 RecordDB &nbsp;</div>
     </footer>
 </body>
