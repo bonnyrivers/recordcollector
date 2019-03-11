@@ -6,7 +6,9 @@
 {% for record in records %}
     <div class="card">
         <div class="card-content">
-            <span class="card-title">{{ record.name }}</span>
+            <a href="{% url 'details' record.id %}">
+                <span class="card-title">{{ record.name }}</span>
+             </a>
             <p>Artist: {{ record.artist }}</p>
             <p>Tracks: {{ record.num_tracks }}</p>
             {% if record.year >= 2018 %}
@@ -14,7 +16,8 @@
             {% else %}
                 <p>Year: {{ record.year }}</p>
             {% endif %}
-            {% if record.duration < 30 %}
+
+            {% if record.duration <= 30 %}
                 <p>Length: {{ record.duration }} min, EP</p>
             {% else %}
                 <p>Length: {{ record.duration }} min, LP</p>

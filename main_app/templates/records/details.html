@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ record.name }}</h1>
+
+<div class="card">
+    <div class="card-content">
+        <img src="{{ record.cover }}" width="355px">
+        <p>Artist: {{ record.artist }}</p>
+        <p>Tracks: {{ record.num_tracks }}</p>
+        {% if record.year >= 2018 %}
+            <p>Year: {{ record.year }} *New Release*</p>
+        {% else %}
+            <p>Year: {{ record.year }}</p>
+        {% endif %}
+
+        {% if record.duration <= 30 %}
+            <p>Length: {{ record.duration }} min, EP</p>
+        {% else %}
+            <p>Length: {{ record.duration }} min, LP</p>
+        {% endif %}
+    </div>
+</div>
+<a href="./">Back</a>
+
+{% endblock %}

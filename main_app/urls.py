@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     # route for cats index
-    path('records/', views.records_index, name='index')
+    path('records/', views.records_index, name='index'),
+    path('records/<int:record_id>', views.records_details, name='details')
 ]
 
