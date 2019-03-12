@@ -21,6 +21,13 @@
         {% endif %}
     </div>
 </div>
-<a href="./">Back</a>
+<div>
+    <div class="card-action">
+        <a href="{% url 'records_update' record.id%}">Edit</a>
+        <a href="{% url 'records_delete' record.id%}">Delete</a>
+        <a href="./">Back</a>
+    </div>
+</div>
+
 
 {% endblock %}
