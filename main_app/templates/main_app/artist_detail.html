@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Artist Details</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ artist.name }}</span>
+        <p>Genre: {{ artist.genre }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'artists_update' artist.id %}">Edit</a>
+        <a href="{% url 'artists_delete' artist.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="/artists/">Back</a>
+{% endblock %}

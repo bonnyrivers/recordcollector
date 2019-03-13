@@ -3,31 +3,98 @@
 
 <h1>{{ record.name }}</h1>
 
-<div class="card">
-    <div class="card-content">
-        <img src="{{ record.cover }}" width="355px">
-        <p>Artist: {{ record.artist }}</p>
-        <p>Tracks: {{ record.num_tracks }}</p>
-        {% if record.year >= 2018 %}
-            <p>Year: {{ record.year }} *New Release*</p>
-        {% else %}
-            <p>Year: {{ record.year }}</p>
-        {% endif %}
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <img src="{{ record.cover }}" width="80%">
+                <p>Artist: {{ record.artist }}</p>
+                <p>Tracks: {{ record.num_tracks }}</p>
+                {% if record.year >= 2018 %}
+                    <p>Year: {{ record.year }} *New Release*</p>
+                {% else %}
+                    <p>Year: {{ record.year }}</p>
+                {% endif %}
 
-        {% if record.duration <= 30 %}
-            <p>Length: {{ record.duration }} min, EP</p>
-        {% else %}
-            <p>Length: {{ record.duration }} min, LP</p>
-        {% endif %}
+                {% if record.duration <= 30 %}
+                    <p>Length: {{ record.duration }} min, EP</p>
+                {% else %}
+                    <p>Length: {{ record.duration }} min, LP</p>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <div class="card-action">
+                <a href="{% url 'records_update' record.id%}">Edit</a>
+                <a href="{% url 'records_delete' record.id%}">Delete</a>
+                <a href="./">Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="col s6">
+        <!-- new code below -->
+        <form method="post" action="{% url 'add_track' record.id %}">
+            {% csrf_token %}
+            {{ track_form.as_p }}
+            <input type="submit" class="btn" value="Add Track">
+        </form>
+        <table class="striped">
+            <thead>
+            <tr><th>Track</th><th>Title</th></tr>
+            </thead>
+            <tbody>
+            {% for track in record.track_set.all %}
+                <tr>
+                <td>{{track.track_num}}</td>
+                <td>{{track.title}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
-<div>
-    <div class="card-action">
-        <a href="{% url 'records_update' record.id%}">Edit</a>
-        <a href="{% url 'records_delete' record.id%}">Delete</a>
-        <a href="./">Back</a>
-    </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>Artists on {{ record.name }}</h3>
+    {% if record.artists.count %}
+      {% for artist in record.artists.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ artist.name }}</span> <br>
+            Genre: {{ artist.genre }}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No associated Artists :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Add Artists</h3>
+    {% if artists.count %}
+      {% for artist in artists.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    {{ artist.name }}
+                </span><br>
+                Genre: {{ artist.genre }}
+        </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_artist' record.id artist.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{record.name}} Has every artist featured</h5>
+    {% endif %}
+  </div>
 </div>
-
 
 {% endblock %}

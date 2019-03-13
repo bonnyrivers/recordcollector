@@ -9,6 +9,10 @@
     <title>RecordDB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script type = "text/javascript"
+        src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script> 
 </head>
 <body>
     <header class="black navbar-fixed">
@@ -20,8 +24,9 @@
                 <ul class="right">
                     <li><a href="/about">About</a></li>
                     <li><a href="{% url 'records_create' %}">Add a Record</a></li>
-                    <!-- new markup below -->
                     <li><a href="/records">View Records</a></li>
+                    <li><a href="{% url 'artists_create' %}">Add an Artist</a></li>
+                    <li><a href="{% url 'artists_index' %}">View All Artists</a></li>
                 </ul>
             </div>
         </nav>
