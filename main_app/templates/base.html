@@ -23,15 +23,24 @@
                 </ul>
                 <ul class="right">
                     <li><a href="/about">About</a></li>
-                    <li><a href="{% url 'records_create' %}">Add a Record</a></li>
-                    <li><a href="/records">View Records</a></li>
-                    <li><a href="{% url 'artists_create' %}">Add an Artist</a></li>
-                    <li><a href="{% url 'artists_index' %}">View All Artists</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'records_create' %}">Add a Record</a></li>
+                        <li><a href="/records">View Records</a></li>
+                        <li><a href="{% url 'artists_create' %}">Add an Artist</a></li>
+                        <li><a href="{% url 'artists_index' %}">View All Artists</a></li>
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                   {% else %}
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>    
+                        <li><a href="{% url 'login' %}">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
     </header>
     <main class="container">
+            {% if user.is_authenticated %}
+    <div>Welcome {{ user }}</div>
+    {% endif %}
         {% block content %}
         {% endblock %}
     </main>

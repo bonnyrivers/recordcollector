@@ -30,7 +30,20 @@
                 <a href="./">Back</a>
             </div>
         </div>
+            <!-- Insert photo markup below this comment -->
+        {% for photo in record.photo_set.all %}
+        <img class="responsive-img materialboxed card-panel" src="{{photo.url}}">
+        {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
+        <form action="{% url 'add_photo' record.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn" value="Upload Photo">
+        </form>
     </div>
+    <!-- new code below -->
     <div class="col s6">
         <!-- new code below -->
         <form method="post" action="{% url 'add_track' record.id %}">
@@ -74,6 +87,7 @@
   <!-- Available toys will come after this line -->
   <div class="col s6">
     <h3>Add Artists</h3>
+    <div style="overflow-y: scroll; height:400px;">
     {% if artists.count %}
       {% for artist in artists.all %}
         <div class="card">
@@ -94,6 +108,9 @@
     {% else %}
       <h5>{{record.name}} Has every artist featured</h5>
     {% endif %}
+    </div>
+    <br>
+    Don't see the artist? <a href="/artists/create">Add one here</a>
   </div>
 </div>
 

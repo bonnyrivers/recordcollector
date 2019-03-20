@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.urls import reverse
+from main_app.genres import *
+from django.contrib.auth.models import User
 
 GENRES = (
     ('ALT', 'Alternative'),
@@ -48,6 +50,8 @@ class Record(models.Model):
     duration = models.IntegerField()
     year = models.IntegerField(validators=[MinValueValidator(1990), MaxValueValidator(2020)])
     artists = models.ManyToManyField(Artist)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.name + ' by ' + self.artist
@@ -67,3 +71,10 @@ class Track(models.Model):
     
     class Meta:
         ordering = ['track_num']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    record = models.ForeignKey(Record, on_delete=models.CASCADE)
+
+    def __str__(self):
+      return f"Photo for record_id: {self.record_id} @{self.url}"

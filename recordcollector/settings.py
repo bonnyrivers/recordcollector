@@ -119,3 +119,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/records/'
+
+# Add this variable to specify where logging out redirects to
+LOGOUT_REDIRECT_URL = '/'
+
+import django_heroku
+django_heroku.settings(locals())
